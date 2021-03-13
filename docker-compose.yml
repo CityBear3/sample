@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  app:
+    build: .
+    volumes:
+      - rust-nginx:/app/
+    command: bash ./launch.sh
+    tty: true
+    ports:
+      - "127.0.0.1:8081:7777"
+
+  nginx:
+    build: ./Nginx
+    tty: true
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      - app
+
+volumes:
+  rust-nginx:
